@@ -1,18 +1,19 @@
 require IEx
 
 defmodule Rename do
-  @source_path "/Users/dewetblomerus/Downloads/"
-  @destination_path "/Users/dewetblomerus/Downloads/"
+  @source_path "/Users/dewet/Downloads/"
+  @destination_path "/Users/dewet/Downloads/"
 
   def receipts do
-    @source_path <> "*"
-    |> Path.wildcard
+    (@source_path <> "*")
+    |> Path.wildcard()
     |> recurse
   end
 
   def recurse([head | tail]) do
     parse(head)
     |> decide
+
     recurse(tail)
   end
 
@@ -20,10 +21,19 @@ defmodule Rename do
   end
 
   def decide(filename) do
-    cond do
-      Regex.match?(~r/paymentNotification|Standard/, filename) -> rename(filename)
-      true -> IO.puts("Skipping #{filename}")
-    end
+    input =
+      IO.gets("Do you want to rename #{filename} ?")
+      |> String.trim()
+
+    execute(input, filename)
+  end
+
+  def execute("y", filename) do
+    rename(filename)
+  end
+
+  def execute("n", filename) do
+    IO.puts("Skipping #{filename}")
   end
 
   def rename(filename) do
@@ -35,21 +45,21 @@ defmodule Rename do
   end
 
   def date do
-    DateTime.utc_now |> Date.to_string
+    DateTime.utc_now() |> Date.to_string()
   end
 
   def payee(filename) do
-    String.trim(IO.gets "Enter Payee Name for #{filename}\n")
+    String.trim(IO.gets("Enter Payee Name for #{filename}\n"))
   end
 
   def amount(filename) do
-    String.trim(IO.gets "Enter amount for #{filename}\n")
+    String.trim(IO.gets("Enter amount for #{filename}\n"))
   end
 
   def extension(filename) do
     letters =
       String.split(filename, ".")
-      |> List.last
+      |> List.last()
 
     "." <> letters
   end
@@ -60,5 +70,4 @@ defmodule Rename do
   end
 end
 
-Rename.receipts
-
+Rename.receipts()
