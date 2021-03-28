@@ -29,11 +29,14 @@ defmodule Rename do
     IO.puts("Skipping #{filename}")
   end
 
-  def rename(filename) do
-    newname_arr = [date(), "Blomerus", payee(filename), "$" <> amount(filename)]
+  def rename(oldname) do
+    newname =
+      [date(), "Blomerus", payee(oldname), "$" <> amount(oldname)]
+      |> Enum.join(" | ")
+      |> Kernel.<>(extension(oldname))
 
-    old_fullname = @source_path <> filename
-    new_fullname = @destination_path <> Enum.join(newname_arr, " | ") <> extension(filename)
+    old_fullname = @source_path <> oldname
+    new_fullname = @destination_path <> newname
     File.rename(old_fullname, new_fullname)
   end
 
