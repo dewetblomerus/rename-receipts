@@ -38,7 +38,7 @@ defmodule Rename do
   end
 
   def rename(filename) do
-    newname_arr = [date(), "Blomerus", payee(filename), "R" <> amount(filename)]
+    newname_arr = [date(), "Blomerus", payee(filename), "$" <> amount(filename)]
 
     old_fullname = @source_path <> filename
     new_fullname = @destination_path <> Enum.join(newname_arr, " | ") <> extension(filename)
