@@ -1,6 +1,7 @@
 require IEx
 
 defmodule Rename do
+  @lastname "Blomerus"
   @downloads Path.expand("~/Downloads") <> "/"
   @source_path @downloads
   @destination_path @downloads
@@ -31,7 +32,7 @@ defmodule Rename do
 
   def rename(oldname) do
     newname =
-      [date(), "Blomerus", payee(oldname), "$" <> amount(oldname)]
+      [date(), @lastname, payee(oldname), "$" <> amount(oldname)]
       |> Enum.join(" | ")
       |> Kernel.<>(extension(oldname))
 
