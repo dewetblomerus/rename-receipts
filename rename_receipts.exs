@@ -8,23 +8,15 @@ defmodule Rename do
   def receipts do
     (@source_path <> "*")
     |> Path.wildcard()
-    |> recurse
-  end
-
-  def recurse([head | tail]) do
-    parse(head)
-    |> decide
-
-    recurse(tail)
-  end
-
-  def recurse([]) do
+    |> Enum.map(&parse_name/1)
+    |> Enum.each(&decide/1)
   end
 
   def decide(filename) do
     input =
       IO.gets("Do you want to rename #{filename} ?")
       |> String.trim()
+      |> String.downcase()
 
     execute(input, filename)
   end
@@ -50,11 +42,11 @@ defmodule Rename do
   end
 
   def payee(filename) do
-    String.trim(IO.gets("Enter Payee Name for #{filename}\n"))
+    IO.gets("Enter Payee Name for #{filename}\n") |> String.trim()
   end
 
   def amount(filename) do
-    String.trim(IO.gets("Enter amount for #{filename}\n"))
+    IO.gets("Enter amount for #{filename}\n") |> String.trim()
   end
 
   def extension(filename) do
@@ -65,7 +57,7 @@ defmodule Rename do
     "." <> letters
   end
 
-  def parse(fullname) do
+  def parse_name(fullname) do
     @source_path <> name = fullname
     name
   end
