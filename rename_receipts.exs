@@ -35,9 +35,10 @@ defmodule Rename do
       |> Enum.join(" | ")
       |> Kernel.<>(extension(oldname))
 
-    old_fullname = @source_path <> oldname
-    new_fullname = @destination_path <> newname
-    File.rename(old_fullname, new_fullname)
+    File.rename(
+      @source_path <> oldname,
+      @destination_path <> newname
+    )
   end
 
   def date do
