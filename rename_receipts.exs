@@ -1,8 +1,9 @@
 require IEx
 
 defmodule Rename do
-  @source_path "/Users/dewet/Downloads/"
-  @destination_path "/Users/dewet/Downloads/"
+  @downloads Path.expand("~/Downloads") <> "/"
+  @source_path @downloads
+  @destination_path @downloads
 
   def receipts do
     (@source_path <> "*")
