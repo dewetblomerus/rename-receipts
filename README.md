@@ -1,6 +1,6 @@
 # Rename Receipts
 
-This renames receipts of Electronic Transfers to give them a searchable and meaningful name.
+This renames receipts to give them a searchable and meaningful name.
 
 ### Setup
 
